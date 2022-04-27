@@ -1,0 +1,90 @@
+digraph {
+    rankdir=LR
+    fontname="Helvetica,Arial,sans-serif"
+    node [fontname="Helvetica,Arial,sans-serif"]
+    edge [fontname="Helvetica,Arial,sans-serif"]
+    node [shape=box, style="rounded, dashed"]
+
+    subgraph  cluster_raw {
+        label = "  Raw (Measured or Inferred)  "
+        energy_s [label="Energy Source"]
+        cooling_e [label="Cooling Energy Use"]
+        network_e [label="Network Energy Use"]
+        server_e [label="Server Energy Use"]
+    }
+
+    subgraph  cluster_aggregates {
+        label = "Aggregate"
+        tfe [label="Total Facility Energy Use"]
+        itqe [label="  IT Equipment Energy Use  "]
+        itre [label="  IT Rated Energy Consumption  "]
+        compute_e [label="   Compute Components Energy Use  "]
+    }
+
+    subgraph cluster_intermediate {
+        label = "Intermediate"
+        ITUE [tooltip="IT-Power Usage Effectiveness"]
+        ITEU [tooltip="IT Equipment Utilization", 
+        URL="https://home.jeita.or.jp/greenit-pc/topics/release/pdf/dppe_e_DPPE_Measurement_Guidelines.pdf"]
+        ITEE [tooltip="IT Equipment Energy",
+        URL="https://home.jeita.or.jp/greenit-pc/topics/release/pdf/dppe_e_DPPE_Measurement_Guidelines.pdf"]
+        useful_w [label="Useful Work Produced"]
+        PUE [tooltip="Power Usage Effectiveness "]
+    }
+
+    subgraph cluster_target_energy {
+        label = "Target"
+        TUE [tooltip="Total Power Usage Effectiveness", style="filled, rounded, dashed", fillcolor=lightgoldenrod1]
+        DPPE [tooltip="Data Center Performance Per Energy" , style="filled, rounded, dashed", fillcolor=lightgoldenrod1,
+         URL="https://home.jeita.or.jp/greenit-pc/topics/release/pdf/dppe_e_DPPE_Measurement_Guidelines.pdf"]
+        GEC [tooltip="Green Energy Coefficient", style="filled, rounded, dashed", fillcolor=darkseagreen2,
+        URL="https://home.jeita.or.jp/greenit-pc/topics/release/pdf/dppe_e_DPPE_Measurement_Guidelines.pdf"]
+        CUE [tooltip="Carbon Usage Effectiveness", style="filled, rounded, dashed", fillcolor=darkseagreen2,
+        URL="https://airatwork.com/wp-content/uploads/The-Green-Grid-White-Paper-32-CUE-Usage-Guidelines.pdf"]
+        CO2 [label="Total CO2", style="filled, rounded, dashed", fillcolor=darkseagreen2]
+        NENO [label="NeNr*" tooltip="Non-Essential Non-Renewable", style="filled, rounded, dashed", fillcolor=darkseagreen2]
+        DCeP [tooltip="Data Center Energy Productivity", style="filled, rounded, dashed", fillcolor=lightgoldenrod1,
+        URL="https://dl.acm.org/doi/10.1145/2367736.2367741"]
+    }
+
+    cooling_e -> tfe
+    network_e -> tfe
+    server_e -> tfe
+
+    energy_s -> GEC
+    energy_s -> CUE
+    energy_s -> CO2
+    energy_s -> NENO
+
+    itre -> ITEU
+    itqe -> PUE
+    itqe -> ITEU
+    compute_e -> ITUE
+
+    useful_w -> DCeP
+    tfe -> DCeP
+    PUE -> TUE
+    PUE -> DPPE
+    ITEE -> DPPE
+    ITEU -> DPPE
+    ITUE -> TUE
+    CO2 -> CUE [constraint=false]
+
+    subgraph cluster_legend {
+        rankdir = TB
+        label="Legend"
+        fontname="Helvetica,Arial,sans-serif"
+        { rank=source; ee es novel };
+        node [shape=box, style=rounded]
+
+        es [label="Energy Sustainability", style="filled, rounded", fillcolor=darkseagreen2]
+        ee [label="Energy Efficiency", style="filled, rounded", fillcolor=lightgoldenrod1]
+        novel [label="* = novel", shape=plaintext]
+
+        subgraph cluster_implemented {
+            label="  Implemented in OpenDC?  "
+            Yes []
+            No [style="dashed, rounded"]
+        }
+    }
+}
