@@ -11,6 +11,7 @@ digraph {
         cooling_e [label="Cooling Energy Use"]
         network_e [label="Network Energy Use"]
         server_e [label="Server Energy Use"]
+        infra_e [label="Infrastructure Energy Use"]
     }
 
     subgraph  cluster_aggregates {
@@ -34,41 +35,48 @@ digraph {
 
     subgraph cluster_target_energy {
         label = "Target"
+        APCren [tooltip="Adaptability Power Curve at Renewable Energies", style="filled, rounded, dashed", fillcolor=darkseagreen2,
+            URL ="https://www.smartcitiescluster.eu/publications/FP7ProjectCluster-NewEnergyEfficiencyMetricsforDataCentres-task3.pdf"]
         TUE [tooltip="Total Power Usage Effectiveness", style="filled, rounded, dashed", fillcolor=lightgoldenrod1]
         DPPE [tooltip="Data Center Performance Per Energy" , style="filled, rounded, dashed", fillcolor=lightgoldenrod1,
-         URL="https://home.jeita.or.jp/greenit-pc/topics/release/pdf/dppe_e_DPPE_Measurement_Guidelines.pdf"]
+            URL="https://home.jeita.or.jp/greenit-pc/topics/release/pdf/dppe_e_DPPE_Measurement_Guidelines.pdf"]
         GEC [tooltip="Green Energy Coefficient", style="filled, rounded, dashed", fillcolor=darkseagreen2,
-        URL="https://home.jeita.or.jp/greenit-pc/topics/release/pdf/dppe_e_DPPE_Measurement_Guidelines.pdf"]
+            URL="https://home.jeita.or.jp/greenit-pc/topics/release/pdf/dppe_e_DPPE_Measurement_Guidelines.pdf"]
         CUE [tooltip="Carbon Usage Effectiveness", style="filled, rounded, dashed", fillcolor=darkseagreen2,
-        URL="https://airatwork.com/wp-content/uploads/The-Green-Grid-White-Paper-32-CUE-Usage-Guidelines.pdf"]
+            URL="https://airatwork.com/wp-content/uploads/The-Green-Grid-White-Paper-32-CUE-Usage-Guidelines.pdf"]
         CO2 [label="Total CO2", style="filled, rounded, dashed", fillcolor=darkseagreen2]
         NENO [label="NeNr*" tooltip="Non-Essential Non-Renewable", style="filled, rounded, dashed", fillcolor=darkseagreen2]
         DCeP [tooltip="Data Center Energy Productivity", style="filled, rounded, dashed", fillcolor=lightgoldenrod1,
-        URL="https://dl.acm.org/doi/10.1145/2367736.2367741"]
+            URL="https://dl.acm.org/doi/10.1145/2367736.2367741"]
     }
 
     cooling_e -> tfe
     network_e -> tfe
     server_e -> tfe
+    infra_e -> tfe
 
     energy_s -> GEC
     energy_s -> CUE
     energy_s -> CO2
     energy_s -> NENO
+    energy_s -> APCren
 
     itre -> ITEU
     itqe -> PUE
     itqe -> ITEU
     compute_e -> ITUE
 
+    tfe -> GEC
     useful_w -> DCeP
     tfe -> DCeP
+    tfe -> APCren
     PUE -> TUE
     PUE -> DPPE
     ITEE -> DPPE
     ITEU -> DPPE
     ITUE -> TUE
     CO2 -> CUE [constraint=false]
+
 
     subgraph cluster_legend {
         rankdir = TB

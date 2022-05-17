@@ -27,4 +27,13 @@ With graphviz installed on your system you can also export the graph directly in
 - PDF: `dot -Tpdf metrics.gv -o metrics.pdf`
 
 
-_metrics.svg_ in root represents the latest graph.
+_metrics.svg_ in root represents the output for the latest graph.
+
+# Sources
+DPPE: https://home.jeita.or.jp/greenit-pc/topics/release/pdf/dppe_e_DPPE_Measurement_Guidelines.pdf
+
+CUE: https://airatwork.com/wp-content/uploads/The-Green-Grid-White-Paper-32-CUE-Usage-Guidelines.pdf 
+
+DCeP: https://dl.acm.org/doi/10.1145/2367736.2367741
+
+APCren: https://www.smartcitiescluster.eu/publications/FP7ProjectCluster-NewEnergyEfficiencyMetricsforDataCentres-task3.pdf
