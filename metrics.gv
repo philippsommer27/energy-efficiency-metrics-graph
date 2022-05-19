@@ -12,6 +12,7 @@ digraph {
         network_e [label="Network Energy Use"]
         server_e [label="Server Energy Use"]
         infra_e [label="Infrastructure Energy Use"]
+        wl_info [label="Workload Info"]
     }
 
     subgraph  cluster_aggregates {
@@ -29,7 +30,6 @@ digraph {
         URL="https://home.jeita.or.jp/greenit-pc/topics/release/pdf/dppe_e_DPPE_Measurement_Guidelines.pdf"]
         ITEE [tooltip="IT Equipment Energy",
         URL="https://home.jeita.or.jp/greenit-pc/topics/release/pdf/dppe_e_DPPE_Measurement_Guidelines.pdf"]
-        useful_w [label="Useful Work Produced"]
         PUE [tooltip="Power Usage Effectiveness "]
     }
 
@@ -45,7 +45,7 @@ digraph {
         CUE [tooltip="Carbon Usage Effectiveness", style="filled, rounded, dashed", fillcolor=darkseagreen2,
             URL="https://airatwork.com/wp-content/uploads/The-Green-Grid-White-Paper-32-CUE-Usage-Guidelines.pdf"]
         CO2 [label="Total CO2", style="filled, rounded, dashed", fillcolor=darkseagreen2]
-        NENO [label="NeNr*" tooltip="Non-Essential Non-Renewable", style="filled, rounded, dashed", fillcolor=darkseagreen2]
+        NENR [label="NeNr*" tooltip="Non-Essential Non-Renewable", style="filled, rounded, dashed", fillcolor=darkseagreen2]
         DCeP [tooltip="Data Center Energy Productivity", style="filled, rounded, dashed", fillcolor=lightgoldenrod1,
             URL="https://dl.acm.org/doi/10.1145/2367736.2367741"]
     }
@@ -58,7 +58,7 @@ digraph {
     energy_s -> GEC
     energy_s -> CUE
     energy_s -> CO2
-    energy_s -> NENO
+    energy_s -> NENR
     energy_s -> APCren
 
     itre -> ITEU
@@ -66,8 +66,9 @@ digraph {
     itqe -> ITEU
     compute_e -> ITUE
 
+    wl_info -> NENR
     tfe -> GEC
-    useful_w -> DCeP
+    wl_info -> DCeP
     tfe -> DCeP
     tfe -> APCren
     PUE -> TUE
